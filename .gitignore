@@ -1,4 +1,4 @@
-config_dev.php
+.env
 tmp
 temp/*
 */temp/*
