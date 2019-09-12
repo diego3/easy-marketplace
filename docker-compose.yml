@@ -1,0 +1,46 @@
+version: "2"
+services:
+
+    memcache:
+      image: memcached:alpine
+      container_name: easy-memcached
+      command: memcached -u memcache
+      ports:
+       - "7851:7851"
+
+    webserver:
+      image: nginx:alpine
+      container_name: easy-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8080:80"
+
+    php-fpm:
+      build: docker/php-fpm
+      container_name: easy-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+      environment:
+          MEMCACHE_HOST: memcache
+          ENVIR: memcache
+          MEMCACHE_PORT: 11211 
+      links:
+        - "db_easy:database"
+
+    db_easy:
+      image: 'mysql:5.7'
+      container_name: mysql-easy
+      ports:
+        - "6033:3306"
+      environment:
+        - MYSQL_USER=easy-api
+        - MYSQL_PASSWORD=9gj738d883kk4qrd
+        - MYSQL_DATABASE=easy
+        - MYSQL_ROOT_PASSWORD=root
+        - TZ=America/Sao_Paulo
+
