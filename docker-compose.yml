@@ -36,7 +36,7 @@ services:
       image: 'mysql:5.7'
       container_name: mysql-easy
       ports:
-        - "6033:3306"
+        - "6036:3306"
       environment:
         - MYSQL_USER=easy-api
         - MYSQL_PASSWORD=9gj738d883kk4qrd
