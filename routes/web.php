@@ -14,3 +14,8 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post('/auth', 'Controller@token');
+
+
+$router->get('/distance', 'GeoController@distance');
