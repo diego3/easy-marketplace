@@ -8,28 +8,21 @@ use App\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     public function authenticate(Request $request){
         $this->validate($request, [
-            'name'  => 'required',
-            'email' => 'required|email'
+            'email'     => 'required|email',
+            'password'  => 'required'
         ]);
 
-        $name  = $request->input('name');
-        $email = $request->input('email'); 
+        $email     = $request->input('email'); 
+        $password  = $request->input('password');
 
-        $user = new \stdClass;
-        $user->id = md5($name.$email);
-
+        $user = User::findByEmailAndPassword($email, $password);
+        if(empty($user)){
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
         $token = Jwt::getToken($user->id);
 
         return response()->json(['token' => $token], 200);

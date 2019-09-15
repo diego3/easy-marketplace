@@ -16,7 +16,6 @@ class GeoController extends Controller
          
         $data = GoogleMaps::distanceMatrix($origins, $destinations);
 
-        //return response()->json($response->getBody()->getContents());
         return $data;
     }
 }

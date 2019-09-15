@@ -11,7 +11,7 @@ class Install extends Command {
      *
      * @var string
      */
-    protected $signature = 'install:app ';
+    protected $signature = 'install:app';
 
     /**
      * The console command description.
@@ -37,11 +37,13 @@ class Install extends Command {
      */
     public function handle()
     {
-        $this->info('This will install the application API');
+        $this->info('Installing...');
         
         $this->createTables();
         $this->seedPartners();
         $this->seedUsers();
+
+        $this->info('Install successfull');
     }
 
 

@@ -10,6 +10,14 @@ class GoogleMaps {
 
     const GOOGLE_MAPS = 'https://maps.googleapis.com/maps/api/';
     
+    /**
+     * Get the distance between two points of localization
+     * 
+     * @param string $origins       It can be a geolocalization points or an address
+     * @param string $destinations  It can be a geolocalization points or an address
+     * 
+     * @return string               Returns a json string containing detailed information about the coordinates
+     */
     public static function distanceMatrix($origins, $destinations){ 
         $params = [
             'origins' =>  $origins,

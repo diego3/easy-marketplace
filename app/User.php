@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -29,4 +30,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * 
+     * @param string $email
+     * @param string $password
+     * 
+     * @return stdClass
+     */
+    public static function findByEmailAndPassword($email, $password){
+        $sql = "SELECT id , name, email FROM easy.users WHERE email = ? AND password = ?";
+        return current(DB::select($sql, [$email, $password]));
+    }
 }

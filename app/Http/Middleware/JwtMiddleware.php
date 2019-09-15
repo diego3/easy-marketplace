@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Firebase\JWT\JWT as FirebaseJWT;
 use Firebase\JWT\ExpiredException;
+use Exception;
 
 class JwtMiddleware
 {
@@ -17,7 +18,6 @@ class JwtMiddleware
      */
     public function handle($request, Closure $next)
     {
-        //$request->validate(['token' => 'required']);
         $token = $request->header('token');
         if(empty($token)){
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -29,7 +29,7 @@ class JwtMiddleware
         catch(ExpiredException $e) {
             return response()->json([ 'error' => 'Provided token is expired.'], 400);
         } 
-        catch(\Exception $e){
+        catch(Exception $e){
             return response()->json(['error' => 'Error'], 400);
         }
         return $next($request);

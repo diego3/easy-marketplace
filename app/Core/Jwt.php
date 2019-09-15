@@ -3,7 +3,6 @@
 namespace App\Core;
 
 use Firebase\JWT\JWT as FirebaseJWT;
-use Firebase\JWT\ExpiredException;
 
 class Jwt {
 
