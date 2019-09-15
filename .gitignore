@@ -6,7 +6,6 @@ temp/*
 Capfile
 Gemfile
 Gemfile.lock
-config/
 lib/
 .phpintel
 .~*

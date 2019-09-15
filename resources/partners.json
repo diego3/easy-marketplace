@@ -149,20 +149,20 @@
     ]
     },
     {
-    "id": "cjsgiytw50009enwg6ige96b4",
-    "name": "Alessandro Braga",
-    "location": {
-    "name": "Beco do Batman",
-    "address": "R. GonÃ§alo Afonso - Vila Madalena",
-    "city": "SÃ£o Paulo",
-    "state": "SP",
-    "country": "Brazil",
-    "lat": -23.5566759,
-    "long": -46.6857404
-    },
-    "availableServices": [
-    "DRY_WASHING"
-    ]
+        "id": "cjsgiytw50009enwg6ige96b4",
+        "name": "Alessandro Braga",
+        "location": {
+            "name": "Beco do Batman",
+            "address": "R. GonÃ§alo Afonso - Vila Madalena",
+            "city": "SÃ£o Paulo",
+            "state": "SP",
+            "country": "Brazil",
+            "lat": -23.5566759,
+            "long": -46.6857404
+        },
+        "availableServices": [
+            "DRY_WASHING"
+        ]
     },
     {
     "id": "cjsgiytw5000aenwgbgxs2r10",
