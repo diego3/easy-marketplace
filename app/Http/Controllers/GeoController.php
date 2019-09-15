@@ -11,8 +11,6 @@ class GeoController extends Controller
     
     public function distance(Request $request)
     {     
-        $token = $request->header('token');
-        
         $origins      = $request->input('origins');
         $destinations = $request->input('destinations');
          

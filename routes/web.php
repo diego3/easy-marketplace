@@ -15,7 +15,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/auth', 'Controller@token');
+// user get a new token
+$router->post('/auth/login', 'AuthController@authenticate');
 
 
-$router->get('/distance', 'GeoController@distance');
+// google maps distance api
+$router->get('/distance', ['middleware' => 'jwt.auth', 'uses' => 'GeoController@distance']);
