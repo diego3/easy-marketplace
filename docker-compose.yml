@@ -37,6 +37,7 @@ services:
     db_easy:
       image: 'mysql:5.7'
       container_name: mysql-easy
+      command: --sql-mode=""
       ports:
         - "6036:3306"
       environment:
