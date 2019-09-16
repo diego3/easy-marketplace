@@ -34,4 +34,33 @@ class GoogleMaps {
     }
 
 
+    /**
+     * Convert addresses (like a street address) into geographic coordinates
+     * 
+     * @param string $address  The address to convert from
+     * 
+     * @return \stdClass|null
+     */
+    public static function coordinatesFromAddress($address){
+        $params = [
+            'address' =>  $address,
+            'key' => env('GOOGLE_MAPS_API_KEY')
+        ];
+
+        $client = new Client(['base_uri' => self::GOOGLE_MAPS]);
+        $response = $client->request('GET', 'geocode/json', [
+            'query' => $params
+        ]);
+
+        $json = json_decode($response->getBody()->getContents());
+
+        if($json->status != "OK"){
+            return null;
+        }
+
+        $location = $json->results[0]->geometry->location ?? null;
+       
+        return $location;
+    }
+
 }
