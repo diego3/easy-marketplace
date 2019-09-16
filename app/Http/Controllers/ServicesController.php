@@ -39,7 +39,7 @@ class ServicesController extends Controller {
 
         $response = GoogleMaps::coordinatesFromAddress($address);
         if(empty($response)){
-            return response()->json(['error' => 'coordinates not found'], 404);
+            return response()->json(['error' => 'Coordenadas não encontradas'], 404);
         }
              
         $services = Partner::availableServices($services, $response->lat, $response->lng, 10);

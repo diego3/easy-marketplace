@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         $user = User::findByEmailAndPassword($email, $password);
         if(empty($user)){
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Credenciais inválidas'], 401);
         }
         
         $token = Jwt::getToken($user->id);

@@ -49,8 +49,6 @@ class Install extends Command {
 
     private function createTables()
     {
-
-        ///DB::statement("CREATE TABLE easy.users ");
         DB::statement("DROP TABLE IF EXISTS easy.users");
         DB::statement("DROP TABLE IF EXISTS easy.partners");
         DB::statement("DROP TABLE IF EXISTS easy.partner_locations");

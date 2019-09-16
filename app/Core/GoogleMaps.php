@@ -41,7 +41,7 @@ class GoogleMaps {
      * 
      * @return \stdClass|null
      */
-    public static function coordinatesFromAddress($address){
+    public static function coordinatesFromAddress(string $address){
         $params = [
             'address' =>  $address,
             'key' => env('GOOGLE_MAPS_API_KEY')
