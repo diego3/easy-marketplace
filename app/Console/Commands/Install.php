@@ -44,6 +44,7 @@ class Install extends Command {
         $this->seedUsers();
 
         $this->info('Install successfull');
+        $this->warn('Por favor inserir a chave do Google Maps no arquivo .env');
     }
 
 
