@@ -22,4 +22,5 @@ $router->post('/auth/login', 'AuthController@authenticate');
 // google maps distance api
 $router->get('/distance', ['middleware' => 'jwt.auth', 'uses' => 'GeoController@distance']);
 $router->get('/api/services', ['middleware' => 'jwt.auth', 'uses' => 'ServicesController@search']);
-$router->get('/api/services/availables', ['middleware' => 'jwt.auth', 'uses' => 'ServicesController@servicesList']);
+$router->get('/api/partner/availables', ['middleware' => 'jwt.auth', 'uses' => 'ServicesController@partners']);
+$router->get('/developers', 'DocApiController@developers');

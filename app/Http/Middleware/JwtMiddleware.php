@@ -30,7 +30,7 @@ class JwtMiddleware
             return response()->json([ 'error' => 'O Token fornecido expirou.'], 400);
         } 
         catch(Exception $e){
-            return response()->json(['error' => 'Error'], 400);
+            return response()->json(['error' => 'Acesso não autorizado'], 401);
         }
         return $next($request);
     }

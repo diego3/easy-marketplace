@@ -1,0 +1,2 @@
+#!/bin/bash
+docker exec -i easy-php-fpm php7.3 artisan install:app

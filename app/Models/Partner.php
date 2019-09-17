@@ -15,7 +15,7 @@ class Partner extends Model {
      */
     public static function findByServices(array $services){
         $sql = "SELECT
-                    p.name as partner_name,
+                    p.name,
                     GROUP_CONCAT(s.name) as services,
                     l.address,
                     l.lat,
@@ -40,13 +40,13 @@ class Partner extends Model {
      * @return stdClass          The closest partner service
      */
     public static function getClosestService(array $services, $lat, $long, $area = 10){
-        $ret = new stdClass;
+        $ret = new \stdClass;
         $partners = Partner::findByServices($services);
         if(empty($partners)){
             return $ret;
         }
-
-        $closest = 0;
+        
+        $closest = (float)$area;
         foreach($partners as &$p){
             $distance = GeoCalculator::distance($lat, $long, $p->lat, $p->long, 'K');
             $p->distance = $distance . ' km';
@@ -81,6 +81,8 @@ class Partner extends Model {
             
             if($distance < $area){
                 $p->distance = $distance . ' km';
+                unset($p->lat);
+                unset($p->long);
                 $ret[] = $p;
             }
         }

@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  version: 2.0.0
+  title: Easy Marketplace API
+  description: Bem vindo à nossa API
+  termsOfService: termos
+  contact:
+    name: Contato
+    url: http://localhost
+    email: www.diegosantos.com.br@gmail.com
+  license:
+    name: FREE
+    url: http://localhost
+  
+servers:
+  - url: https://localhost:8080
+    description: Servidor de desenvolvimento
+paths:
+  /auth/login:
+    post:
+      summary: Obter token de acesso para autorização
+      description: Retorna o token renovado
+      responses:
+        200:
+          description: Return a valid access token
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYXN5LW1hcmtldHBsYWNlLWFwaSIsInN1YiI6ImNqc2dpeXR3ODAwMXplbndnOGZvN2RsN2UiLCJpYXQiOjE1Njg2MDM1MjYsImV4cCI6MTU2ODYwNzEyNn0.qfYdPRRGY04pVpMwDRN4sD3imvR8HFC34hXUuNMqCww"}
+        500:
+          description: Erro interno
+        401:
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {"error": "Credenciais inválidas"}
+        422:
+          description: Unprocessed entity
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {
+                    "email": [
+                      "The email field is required."
+                    ],
+                    "password": [
+                      "The password field is required."
+                    ]
+                  }
+      parameters: 
+        - in: query
+          name: email
+          required: true
+          schema:
+            type: string
+          description: O e-mail do usuário
+        - in: query
+          name: password
+          required: true
+          schema:
+            type: string
+          description: A senha do usuário
+  /api/services:
+    get:
+      summary: Usuário solicita serviço
+      description: Retorna um resumo do score do fornecedor
+      responses:
+        200:
+          description: Retorna o serviço mais próximo dentro do raio de 10km
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Partners"
+        500:
+          description: Internal error
+        400:
+          description: Token provided has expired
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {"error": "O token fornecido expirou"}
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {"error": "Acesso não autorizado"}
+        404:
+          description: Nenhum serviço disponível próximo ao endereço informado
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {"error": "Nenhum serviço disponível próximo ao endereço informado"}
+      parameters: 
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: O token de acesso do usuário
+        - in: query
+          name: lat
+          required: true
+          schema:
+            type: string
+          description: A latitude do endereço do usuário
+        - in: query
+          name: long
+          required: true
+          schema:
+            type: string
+          description: A longitude do endereço do usuário
+        - in: query
+          name: services
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+               - 'OIL_CHANGE'
+               - 'DRY_WASHING'
+          description: O serviço solicitado pelo usuário
+  
+  /api/services/availables:
+    get:
+      summary: Lista os profissionais disponíveis
+      description: Profissionais com serviços disponíveis no endereço informado
+      responses:
+        200:
+          description: Retorna uma lista dos profissionais disponíveis dentro do raio de 10km
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fornecedores:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Partners"
+                  offset:
+                    type: integer
+                  total:
+                    type: integer
+        500:
+          description: Internal error
+        401:
+          description: Permissão negada ou token expirado
+          content:
+            application/json:
+              schema:
+                type: string
+                example : {"message": "Permissão negada","code": 401}
+      parameters: 
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Seu token de acesso válido
+        - in: header
+          name: Secret
+          required: true
+          schema:
+            type: string
+          description: Sua chave secreta
+        - in: query
+          name: data
+          schema:
+            type: string
+            example: deve ser no formato Y-m-d exemplo "2019-07-07"
+          description: A data em que o score foi calculado
+        - in: query
+          name: limit
+          schema:
+            type: string
+          description: A quantidade de registros que o endpoint deve retornar
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: O Offset dos registros
+
+components:
+  schemas:
+    Partners:
+      type: object
+      properties:
+        partner_name:
+          type: string
+          description: O nome do parceiro
+        services:
+          type: string
+          description: Os serviços que o parceiro atende
+        address:
+          type: number
+          description: O endereço do parceiro
+       
+          
+            
+          
+    
+
+    

@@ -28,7 +28,7 @@ class ServicesController extends Controller {
         return response()->json($service);
     }
 
-    public function servicesList(Request $request){
+    public function partners(Request $request){
         $this->validate($request, [
             'address'  => 'required',
             'services' => 'required'
@@ -36,18 +36,20 @@ class ServicesController extends Controller {
 
         $address  = $request->input('address');
         $services = $request->input('services');
+        $area     = (float)$request->input('area') ?? 10;
 
         $response = GoogleMaps::coordinatesFromAddress($address);
         if(empty($response)){
             return response()->json(['error' => 'Coordenadas não encontradas'], 404);
         }
              
-        $services = Partner::availableServices($services, $response->lat, $response->lng, 10);
-        
-        if(empty($services)){
-            return response()->json([], 400);
+        $ret = new \stdClass;
+        $ret->partners = Partner::availableServices($services, $response->lat, $response->lng, $area);
+    
+        if(empty($ret->partners)){
+            return response()->json($ret, 400);
         }
-        return response()->json($services);
+        return response()->json($ret);
     }
 
 
