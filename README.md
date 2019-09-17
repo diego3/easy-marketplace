@@ -48,7 +48,7 @@ a aplicação já estará disponível em http://localhost:8080
   --url 'http://localhost:8080/api/services?lat=-27.622728&long=-48.448865&services%5B%5D=DRY_WASHING' \
   --header 'token: {cole-seu-token-aqui}'
   ```
-  Neste caso foi utilizado a geolocalização de um bar próximo a um parceiro na praia de Santa Joaquina em SC. 
+  No exemplo acima foi utilizado a geolocalização de um bar próximo a um parceiro à Praia da Joaquina em SC. 
 
 - procurando profissionais disponíveis para o serviço 'OIL_CHANGE' num raio de 10km.
 
