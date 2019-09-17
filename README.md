@@ -1,24 +1,18 @@
 ### Easy marketplace API
 
-Bem-vindo à era da mobilidade
-Atualize sua gestão. A Easy leva redução de custo, gestão de serviços e inteligência artificial para sua frota migrar para a era do software.
+Bem-vindo à era da mobilidade. A Easy leva redução de custo, gestão de serviços e inteligência artificial para sua frota migrar para a era do software.
 
 ### Requisitos
  - docker engine https://docs.docker.com/install/
  - docker compose https://docs.docker.com/v17.09/compose/install
 
 ### Instalação
- O primeiro passo será instalar os containers do docker, execute o seguinte comando:
- * os comandos devem ser executados dentro da pasta raiz do projeto
+ O primeiro passo será clonar este repositório
+ ```
+ > git clone https://github.com/diego3/easy-marketplace.git
+ ```
  
- ```
- > docker-compose build
-```
- agora você precisa subir os seus containers, execute o seguinte comando:
- ```
- > docker-compose start  (ou docker-composer up se quiser o processo em foreground)
- ```
- Tudo pronto para instalar a aplicação, execute:
+ Acesse a pasta do projeto e execute o seguinte comando:
 ```
 > sh install
 ```
