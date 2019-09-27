@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Core\GeoCalculator;
 use App\Services\GeoLocalizationService;
+use App\Core\DataSourceGeoCalculator;
 
 class GeoLocalizationFactory {
 
