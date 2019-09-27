@@ -4,8 +4,9 @@ namespace App\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as GuzzleHttpRequest;
+use App\Core\ApiGeolocalizationInterface;
 
-class GoogleMaps {
+class GoogleMapsApi implements ApiGeolocalizationInterface {
 
 
     const GOOGLE_MAPS = 'https://maps.googleapis.com/maps/api/';

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Partner;
-use App\Core\GoogleMaps;
+use App\Core\GoogleMapsApi;
+use App\Services\PartnerService;
 
 class ServicesController extends Controller {
 
@@ -19,8 +20,11 @@ class ServicesController extends Controller {
         $lat      = $request->input('lat');
         $long     = $request->input('long');
         $services = $request->input('services');
-             
-        $service = Partner::getClosestService($services, $lat, $long, 10);
+        
+        $partner = new Partner();
+        $partnerService = new PartnerService($partner);
+
+        $service = $partnerService->getClosestService($services, $lat, $long, 10);
         
         if(empty($service)){
             return response()->json(['error' => 'Nenhum serviço disponível próximo ao endereço informado'], 404);
@@ -38,13 +42,16 @@ class ServicesController extends Controller {
         $services = $request->input('services');
         $area     = (float)$request->input('area') ?? 10;
 
-        $response = (new GoogleMaps())->coordinatesFromAddress($address);
+        $response = (new GoogleMapsApi())->coordinatesFromAddress($address);
         if(empty($response)){
             return response()->json(['error' => 'Coordenadas não encontradas'], 404);
         }
-             
+        
+        $partner = new Partner();
+        $partnerService = new PartnerService($partner);
+
         $ret = new \stdClass;
-        $ret->partners = Partner::availableServices($services, $response->lat, $response->lng, $area);
+        $ret->partners = $partnerService->availableServices($services, $response->lat, $response->lng, $area);
     
         if(empty($ret->partners)){
             return response()->json($ret, 400);

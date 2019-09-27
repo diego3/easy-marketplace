@@ -2,8 +2,9 @@
 
 namespace App\Core;
 
+use App\Core\AbstractGeoCalculator;
 
-class GeoCalculator {
+class DataSourceGeoCalculator extends AbstractGeoCalculator {
 
 
     /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Core\GoogleMaps;
+use App\Core\GoogleMapsApi;
 
 class GeoController extends Controller
 {
@@ -14,8 +14,6 @@ class GeoController extends Controller
         $origins      = $request->input('origins');
         $destinations = $request->input('destinations');
          
-        $data = (new GoogleMaps())->distanceMatrix($origins, $destinations);
-
-        return $data;
+        return (new GoogleMapsApi())->distanceMatrix($origins, $destinations);
     }
 }
