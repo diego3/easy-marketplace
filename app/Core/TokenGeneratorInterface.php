@@ -3,15 +3,15 @@
 namespace App\Core;
 
 
-class TokenGeneratorInterface {
+interface TokenGeneratorInterface {
 
     /**
      * Creates a new token
      */
-    public abstract function create($string);
+    public function create($string);
 
     /**
      * Check if a token is valid
      */
-    public abstract function verify($token);
+    public function verify($token);
 }

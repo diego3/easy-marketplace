@@ -23,7 +23,9 @@ class AuthController extends Controller
             return response()->json(['error' => 'Credenciais inválidas'], 401);
         }
         
-        $token = (new JwtTokenGenerator())->create($user->id);
+        $tokenGenerator = new JwtTokenGenerator();
+        $tokenGenerator->setApplicationName("easy-marketplace-api");
+        $token = $tokenGenerator->create($user->id);
 
         return response()->json(['token' => $token], 200);
     }

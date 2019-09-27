@@ -24,7 +24,8 @@ class JwtMiddleware
         }
 
         try{
-            (new JwtTokenGenerator())->verify($token);
+            $tokenGenerator = new JwtTokenGenerator();
+            $tokenGenerator->verify($token);
         }
         catch(TokenExpiredException $e) {
             return response()->json([ 'error' => 'O Token fornecido expirou.'], 400);

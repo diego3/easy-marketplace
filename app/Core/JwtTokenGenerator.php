@@ -5,10 +5,18 @@ namespace App\Core;
 use Firebase\JWT\JWT as FirebaseJWT;
 use Firebase\JWT\ExpiredException;
 use App\Exceptions\TokenExpiredException;
-use App\TokenGeneratorInterface;
+use App\Core\TokenGeneratorInterface;
 
 class JwtTokenGenerator implements TokenGeneratorInterface {
 
+    /**
+     * @var string
+     */
+    private $applicationName;
+
+    public function setApplicationName(string $applicationName){
+        $this->applicationName = $applicationName;
+    }
 
     /**
      * 
@@ -16,7 +24,7 @@ class JwtTokenGenerator implements TokenGeneratorInterface {
      */
     public function create($string){
         $payload = [
-            'iss' => "easy-marketplace-api", 
+            'iss' => $this->applicationName, 
             'sub' => $string,
             'iat' => time(),
             'exp' => time() + 60*60 // in seconds 
