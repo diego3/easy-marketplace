@@ -14,7 +14,7 @@ class GeoController extends Controller
         $origins      = $request->input('origins');
         $destinations = $request->input('destinations');
          
-        $data = GoogleMaps::distanceMatrix($origins, $destinations);
+        $data = (new GoogleMaps())->distanceMatrix($origins, $destinations);
 
         return $data;
     }

@@ -18,7 +18,7 @@ class GoogleMaps {
      * 
      * @return string               Returns a json string containing detailed information about the coordinates
      */
-    public static function distanceMatrix($origins, $destinations){ 
+    public function distanceMatrix($origins, $destinations){ 
         $params = [
             'origins' =>  $origins,
             'destinations' =>  $destinations,
@@ -41,7 +41,7 @@ class GoogleMaps {
      * 
      * @return \stdClass|null
      */
-    public static function coordinatesFromAddress(string $address){
+    public function coordinatesFromAddress(string $address){
         $params = [
             'address' =>  $address,
             'key' => env('GOOGLE_MAPS_API_KEY')

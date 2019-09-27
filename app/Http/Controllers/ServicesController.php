@@ -38,7 +38,7 @@ class ServicesController extends Controller {
         $services = $request->input('services');
         $area     = (float)$request->input('area') ?? 10;
 
-        $response = GoogleMaps::coordinatesFromAddress($address);
+        $response = (new GoogleMaps())->coordinatesFromAddress($address);
         if(empty($response)){
             return response()->json(['error' => 'Coordenadas não encontradas'], 404);
         }

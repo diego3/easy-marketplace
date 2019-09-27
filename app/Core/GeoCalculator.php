@@ -32,7 +32,7 @@ class GeoCalculator {
     /*::         GeoDataSource.com (C) All Rights Reserved 2018                  :*/
     /*::                                                                         :*/
     /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    public static function distance($lat1, $lon1, $lat2, $lon2, $unit = 'K') {
+    public function distance($lat1, $lon1, $lat2, $lon2, $unit = 'K') {
         if (($lat1 == $lat2) && ($lon1 == $lon2)) {
             return 0;
         }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Core\Jwt;
+use App\Core\JwtTokenGenerator;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -23,7 +23,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Credenciais inválidas'], 401);
         }
         
-        $token = Jwt::getToken($user->id);
+        $token = (new JwtTokenGenerator())->create($user->id);
 
         return response()->json(['token' => $token], 200);
     }

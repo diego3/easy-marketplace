@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Core\JwtTokenGenerator;
 use Closure;
-use Firebase\JWT\JWT as FirebaseJWT;
-use Firebase\JWT\ExpiredException;
+use App\Exceptions\TokenExpiredException;
 use Exception;
 
 class JwtMiddleware
@@ -24,9 +24,9 @@ class JwtMiddleware
         }
 
         try{
-            FirebaseJWT::decode($token, env('JWT_SECRET'), ['HS256']);
+            (new JwtTokenGenerator())->verify($token);
         }
-        catch(ExpiredException $e) {
+        catch(TokenExpiredException $e) {
             return response()->json([ 'error' => 'O Token fornecido expirou.'], 400);
         } 
         catch(Exception $e){
