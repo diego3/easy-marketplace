@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Partner;
-use App\Services\GeoLocalizationFactory;
+use App\Services\GeoLocalizationService;
 
 class PartnerService {
 
@@ -12,9 +12,15 @@ class PartnerService {
      */
     protected $partner;
 
-    public function __construct(Partner $partner)
+    /**
+     * @var \App\Services\GeoLocalizationService
+     */
+    protected $geoService;
+
+    public function __construct(Partner $partner, GeoLocalizationService $geo)
     {
         $this->partner = $partner;
+        $this->geoService = $geo;
     }
 
     /**
@@ -34,11 +40,9 @@ class PartnerService {
             return $ret;
         }
         
-        $geoService = GeoLocalizationFactory::createService();
-        
         $closest = (float)$area;
         foreach($partners as &$p){
-            $distance = $geoService->calculateDistance($lat, $long, $p->lat, $p->long, 'K');
+            $distance = $this->geoService->calculateDistance($lat, $long, $p->lat, $p->long, 'K');
             $p->distance = $distance . ' km';
             
             if($distance < $area && $distance < $closest){
@@ -67,10 +71,8 @@ class PartnerService {
             return $ret;
         }
 
-        $geoService = GeoLocalizationFactory::createService();
-
         foreach($partners as &$p){
-            $distance = $geoService->calculateDistance($lat, $long, $p->lat, $p->long, 'K');
+            $distance = $this->geoService->calculateDistance($lat, $long, $p->lat, $p->long, 'K');
             
             if($distance < $area){
                 $p->distance = $distance . ' km';

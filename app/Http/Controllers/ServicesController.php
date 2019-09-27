@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Partner;
 use App\Core\GoogleMapsApi;
 use App\Services\PartnerService;
+use App\Services\GeoLocalizationFactory;
 
 class ServicesController extends Controller {
 
@@ -22,7 +23,8 @@ class ServicesController extends Controller {
         $services = $request->input('services');
         
         $partner = new Partner();
-        $partnerService = new PartnerService($partner);
+        $geolocalization = GeoLocalizationFactory::createService();
+        $partnerService = new PartnerService($partner, $geolocalization);
 
         $service = $partnerService->getClosestService($services, $lat, $long, 10);
         
@@ -48,7 +50,8 @@ class ServicesController extends Controller {
         }
         
         $partner = new Partner();
-        $partnerService = new PartnerService($partner);
+        $geolocalization = GeoLocalizationFactory::createService();
+        $partnerService = new PartnerService($partner, $geolocalization);
 
         $ret = new \stdClass;
         $ret->partners = $partnerService->availableServices($services, $response->lat, $response->lng, $area);
